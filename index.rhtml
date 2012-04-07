@@ -1,0 +1,25 @@
+<%= @templates['_header'] %>
+    
+    <ul id='index'>
+    <% for post in posts %> 
+        <li> 
+            <em class='date'> <%= post.created.strftime("%B %d, %Y") %></em>  
+            <a href='<%= post.link %>'><%= post.title %></a> 
+        </li> 
+    <% end %>
+    </ul>
+
+    <% for category, posts in categories %> 
+    <h2 id='<%=CGI::escape(category) %>' class='category_header'><%= category %> </h2>
+        <ul class='category'>
+        <% for post in posts %> 
+            <li> 
+                <em class='date'> <%= post.created.strftime("%B %d, %Y") %></em>  
+                <a href='<%= post.link %>'><%= post.title %></a> 
+            </li> 
+        <% end %>
+        </ul>
+
+    <% end %>
+
+<%= @templates['_footer'] %>
