@@ -8,7 +8,7 @@
 <% end %>
 
     <% current_post.categories.each do |category| %>
-        <li class='grid grid_2 <%= category.downcase.gsub(' ', '_') %>'><a href='index.html#<%= category.downcase.gsub(' ', '_') %>'><%= category %> </a> </li>
+        <li class='grid grid_2 <%= category.downcase.gsub(' ', '_') %>'><a href='../index.html#<%= category.downcase.gsub(' ', '_') %>'><%= category %> </a> </li>
     <% end %>
 
 </ul>
