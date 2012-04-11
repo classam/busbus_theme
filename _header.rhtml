@@ -2,29 +2,23 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link href='http://fonts.googleapis.com/css?family=Averia+Serif+Libre:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href="<%= @settings['location'] %>/style/style.css" rel="stylesheet" type="text/css" />
+    
+    <link href="<%= @settings['location'] %>style/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type='text/javascript'> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type='text/javascript'></script> 
+    <script src="<%= @settings['location'] %>style/jquery.flip.min.js" type='text/javascript'></script>
+    <script src="<%= @settings['location'] %>style/jflip.js" type="text/javascript"> </script>
     <title><%= @settings['title'] %></title>
 
 </head>
+
+<!-- BITCH, I'M A BUSBUS... powered website. -->
 <body>
 
-<!-- Header --> 
-<div id='header'>
-    <h1><a href='<%= @settings['location']%>index.html'><%= @settings['title'] %></a></h1>
-    <nav>
-    <h2>Categories</h2>
-    <ul>
-    <% for category, contents in categories %> 
-    <li><a href='<%= @settings['location']%>index.html#<%=CGI::escape(category) %>'><%= category %></a></li>
-    <% end %>
-    </ul>
-    <h2>Subscribe</h2>
-    <ul>
-        <li><a class='rss' href='rss.xml'>Rss</a></li>
-    </ul>
+<div class='container'>
 
-    </nav>
-</div>
-
-<div id='main'> 
+<ul class='things'>
+   
+    <li class='sidebar' id="home">
+        <ul> 
+            <li class='flippy grid grid_4 title'><h1><a href='<%= @settings['location']%>index.html'><%= @settings['title'] %></a></h1></li>

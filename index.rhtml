@@ -1,25 +1,79 @@
 <%= @templates['_header'] %>
-    
-    <ul id='index'>
-    <% for post in posts %> 
-        <li> 
-            <em class='date'> <%= post.created.strftime("%B %d, %Y") %></em>  
+            <!-- sidebar -->
+            <li class='grid grid_2 github'> <a href='https://github.com/classam/'>Github</a> </li>
+            <li class='grid grid_2 twitter'> <a href='https://twitter.com/#!/classam'>Twitter</a> </li>
+            <li class='grid grid_2 rss'> <a href='<%= @settings['location']%>rss.xml'>RSS</a> </li>
+            <li class='grid grid_2 comics'> <a href='#comics' class='filter' data-filter='comics' >Comics</a> </li>
+            <li class='grid grid_2 needlessly_technical'> <a class='filter' data-filter='needlessly_technical' href='#needlessly_technical'>Tech</a> </li>
+            <li class='grid grid_2 food'> <a class='filter' data-filter='food' href='#food'>Food</a> </li>
+        </ul>
+    </li>
+
+    <%
+    max_opacity = 1
+    min_opacity = 0.35
+    %>
+
+    <li id='main'> 
+    <ul>
+    <% posts.each_with_index do |post, index| 
+        
+        word_count = post.html_content.split(/[^A-Za-z]/).count 
+
+        postclass = 'grid_2'
+        postclass = 'grid_4' if word_count > 800 
+        postclass = 'grid_6' if word_count > 1800
+        postclass = 'square_6' if index == 0
+        postclass = 'square_4' if index == 1 or index == 2
+
+        post.categories.each { |category| postclass << " " + category.downcase.gsub(' ', '_') } 
+        opacity = max_opacity - ((max_opacity - min_opacity)/posts.count) * index
+
+        %>
+
+        <li class='grid <%= postclass %>' style='opacity:<%= opacity %>'  >
+            <em class='date'> <%= post.created.strftime("%d.%b.%y") %></em>  
             <a href='<%= post.link %>'><%= post.title %></a> 
         </li> 
     <% end %>
+    <li class='grid grid_2' > <strong> That's all, folks. </strong> </li>
     </ul>
+    <li><div style='clear:both;'> </div></li>
+    
 
     <% for category, posts in categories %> 
-    <h2 id='<%=CGI::escape(category) %>' class='category_header'><%= category %> </h2>
-        <ul class='category'>
-        <% for post in posts %> 
-            <li> 
-                <em class='date'> <%= post.created.strftime("%B %d, %Y") %></em>  
-                <a href='<%= post.link %>'><%= post.title %></a> 
-            </li> 
-        <% end %>
-        </ul>
+    <% if category != "Misc"  %>
+    <li class='category'>
+        <ul>
+            <li class='grid square_4 <%= category.downcase.gsub(' ', '_') %>'>
+                <h2 id='<%=category.downcase.gsub(' ', '_') %>'><%= category %> </h2>
+                <a href='#home'>Home</a>
+            </li>
+            
+            <% posts.each_with_index do |post, index| 
+                
+                word_count = post.html_content.split(/[^A-Za-z]/).count 
 
+                postclass = 'grid_2'
+                postclass = 'grid_4' if word_count > 800 
+                postclass = 'grid_6' if word_count > 1800
+                postclass = 'square_6' if index == 0
+                postclass = 'square_4' if index == 1
+
+                post.categories.each { |category| postclass << " " + category.downcase.gsub(' ', '_') } 
+                opacity = max_opacity - ((max_opacity - min_opacity)/posts.count) * index
+
+                %>
+
+                <li class='grid <%= postclass %>' style='opacity:<%= opacity %>'  >
+                    <em class='date'> <%= post.created.strftime("%d.%b.%y") %></em>  
+                    <a href='<%= post.link %>'><%= post.title %></a> 
+                </li> 
+            <% end %>
+        </ul>
+    </li>
+    <li> <div style='clear:both;'> </div> </li>
+    <% end %>
     <% end %>
 
 <%= @templates['_footer'] %>
