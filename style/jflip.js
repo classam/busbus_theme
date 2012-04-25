@@ -9,7 +9,7 @@ $(function() {
                     $(item).flip({
                         direction: "lr",  
                         color: "#333",
-                        speed: 300
+                        speed: 180
                     });
                     $(item).data('flipped', true);
                     setTimeout( function(){ 

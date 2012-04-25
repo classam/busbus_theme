@@ -7,8 +7,13 @@
     <li class='grid grid_2 next'><a href='<%= @settings['location']%><%= next_post.link %>'>Next Post &gt;</a></li>
 <% end %>
 
-    <% current_post.categories.each do |category| %>
-        <li class='grid grid_2 <%= category.downcase.gsub(' ', '_') %>'><a href='../index.html#<%= category.downcase.gsub(' ', '_') %>'><%= category %> </a> </li>
+    <% category_object.each do |category, prev_next| %>
+        <% unless prev_next['previous'] == nil %> 
+            <li class='grid grid_2 previous <%= category.downcase.gsub(' ', '_')%>'><a href='<%= @settings['location']%><%= prev_next['previous'].link %>'>&lt; Previous in <%= category %></a></li>
+        <% end %>
+        <% unless prev_next['next'] == nil %> 
+            <li class='grid grid_2 next <%= category.downcase.gsub(' ', '_')%>'><a href='<%= @settings['location']%><%= prev_next['next'].link %>'>Next Post in <%= category%>&gt;</a></li>
+        <% end %>
     <% end %>
 
 </ul>
@@ -19,7 +24,7 @@
 <article>
 <h2><%= current_post.title %></h2>
 <div class='date'><%= current_post.created.strftime("%B %d, %Y"); %></div>
-<p><%= current_post.html_content %></p>
+<%= current_post.html_content %>
 </article>
 
 <!-- DISQUS DROP-IN -->

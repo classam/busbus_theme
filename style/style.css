@@ -128,3 +128,8 @@ h1
     padding-left: 290px;
     font-family: Georgia, serif;
 }
+
+br
+{
+    margin-bottom: 8px;
+}
