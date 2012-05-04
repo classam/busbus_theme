@@ -42,7 +42,7 @@
     
 
     <% for category, posts in categories %> 
-    <% if category != "Misc"  %>
+    <% if category != "Misc" and posts.length > 7   %>
     <li class='category'>
         <ul>
             <li class='grid square_4 <%= category.downcase.gsub(' ', '_') %>'>
