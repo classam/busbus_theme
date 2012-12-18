@@ -131,12 +131,13 @@ h1
 
 .article ul, .article ol
 {
-    margin-left: 10px;
+    padding-left: 40px;
 }
 
 .article li
 {
     list-style-type: lower-greek; 
+    margin-bottom: 4px;
 }
 
 br
