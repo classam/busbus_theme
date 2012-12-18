@@ -129,6 +129,11 @@ h1
     font-family: Georgia, serif;
 }
 
+.article ul, .article ol
+{
+    margin-left: 10px;
+}
+
 .article li
 {
     list-style-type: lower-greek; 
