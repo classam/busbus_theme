@@ -134,10 +134,38 @@ h1
     padding-left: 40px;
 }
 
-.article li
+.article ul li
 {
-    list-style-type: lower-greek; 
+    list-style-type: circle; 
     margin-bottom: 4px;
+}
+
+.article ol li
+{
+    list-style-type: lower-roman; 
+    margin-bottom: 4px;
+}
+
+#irc
+{
+    padding: 10px;
+    font-family: Consolas, monospace;
+}
+
+#irc li
+{
+    list-style-type: none;
+    background-color: #EFEFEF;
+}
+
+#irc li:nth-of-type(2n)
+{
+    background-color: #DEDEDE; 
+}
+
+#irc .other
+{
+    font-style: italic;
 }
 
 br
