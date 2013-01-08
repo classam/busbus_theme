@@ -1,7 +1,7 @@
 
 $(function() {
     
-    $(".grid").each( function( i, item ){ 
+    $(".flip").each( function( i, item ){ 
         $(item).hover(
             function(event){ 
                 if( ! $(item).data('flipped') )
