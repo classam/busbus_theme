@@ -5,7 +5,7 @@
         word_count = post.html_content.split(/[^A-Za-z]/).count 
 
         postclass = 'col-md-4'
-        postclass = 'col-md-12' if index < 10
+        postclass = 'col-md-12' if index < 18
 
         post.categories.each { |category| postclass << " " + category.downcase.gsub(' ', '_') } 
         %>
@@ -43,7 +43,7 @@
             <% end %>
             </ul>
 
-            <% if index < 10 %>
+            <% if index < 18 %>
                <%= post.html_content %> 
             <% end %>
             </div>

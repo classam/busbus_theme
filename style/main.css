@@ -1,3 +1,5 @@
+/* https://kuler.adobe.com/Watermelon-color-theme-42374 */
+
 body{
     background-color: #FF8598;
 }
@@ -71,4 +73,26 @@ body{
 }
 .content h3, .content h4, .content h5, .content .h6{
     color: #FF8598;
+}
+
+#irc
+{
+    padding: 10px;
+    font-family: Consolas, monospace;
+}
+
+#irc li
+{
+    list-style-type: none;
+    background-color: #EFEFEF;
+}
+
+#irc li:nth-of-type(2n)
+{
+    background-color: #DEDEDE;
+}
+
+#irc .other
+{
+    font-style: italic;
 }
