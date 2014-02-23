@@ -96,3 +96,8 @@ body{
 {
     font-style: italic;
 }
+
+.blog_post
+{
+    max-width: 800px;
+}
