@@ -1,51 +1,92 @@
 <%= @templates['_header'] %>
 
-<% unless previous_post == nil %> 
-    <li class='grid grid_2 previous'><a href='<%= @settings['location']%><%= previous_post.link %>'>&lt; Previous Post</a></li>
-<% end %>
-<% unless next_post == nil %> 
-    <li class='grid grid_2 next'><a href='<%= @settings['location']%><%= next_post.link %>'>Next Post &gt;</a></li>
-<% end %>
 
-    <% category_object.each do |category, prev_next| %>
-        <% unless prev_next['previous'] == nil %> 
-            <li class='grid grid_2 previous <%= category.downcase.gsub(' ', '_')%>'><a href='<%= @settings['location']%><%= prev_next['previous'].link %>'>&lt; Previous in <%= category %></a></li>
-        <% end %>
-        <% unless prev_next['next'] == nil %> 
-            <li class='grid grid_2 next <%= category.downcase.gsub(' ', '_')%>'><a href='<%= @settings['location']%><%= prev_next['next'].link %>'>Next Post in <%= category%>&gt;</a></li>
-        <% end %>
-    <% end %>
+        <article class='grid col-md-12'>
+            <div class='item'>
 
-</ul>
-</li> 
+            <div class='nav'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <ul class='nav nav-tabs nav-justified'>
+                        <% unless previous_post == nil %> 
+                            <li class='previous'><a href='<%= @settings['location']%><%= previous_post.link %>'>&lt; Previous Post</a></li>
+                        <% end %>
+                        <% unless next_post == nil %> 
+                            <li class='next'><a href='<%= @settings['location']%><%= next_post.link %>'>Next Post &gt;</a></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2>
+            <a href='<%= current_post.link %>'>
+            <%= current_post.title %>
+            </a> 
+            </h2>
+            
+            <p class='date'><%= current_post.created.strftime("%B %d, %Y") %> </p>
 
-<li class='article'>
+            <div class='row category'>
+            <% category_object.each do |category, prev_next| %>
+            <% if ['Comics', 'Video', 'Sketch', 'Needlessly Technical', 'Tech', 'Food', 'Design & Typography', 'University', 'Peru Trip', 'Travel'].include? category %>
+                <% icon = "fa-picture-o" if category == 'Comics' %>
+                <% icon = "fa-pencil" if category == 'Sketch' %>
+                <% icon = "fa-youtube-play" if category == 'Video' %>
+                <% icon = "fa-code-fork" if category == 'Needlessly Technical' %>
+                <% icon = "fa-code-fork" if category == 'Tech' %>
+                <% icon = "fa-cutlery" if category == 'Food' %>
+                <% icon = "fa-sort-alpha-asc" if category == 'Design & Typography' %>
+                <% icon = "fa-building-o" if category == 'University' %>
+                <% icon = "fa-umbrella " if category == 'Peru Trip' %>
+                <div class='col-md-3 hidden-xs'>
+                    <ul class='nav nav-pills nav-justified'>
+                    <% unless prev_next['previous'] == nil %> 
+                        <li class='previous <%= category.downcase.gsub(' ', '_')%>'>
+                            <a title='Previous in <%= category %>' href='<%= @settings['location']%><%= prev_next['previous'].link %>'>
+                                <i class='fa fa-arrow-circle-o-left fa-2x'></i>
+                                <i class='fa <%=icon%> fa-2x'></i>
+                            </a>
+                        </li>
+                    <% end %>
+                    <% unless prev_next['next'] == nil %> 
+                        <li class='next <%= category.downcase.gsub(' ', '_')%>'>
+                            <a title='Next in <%= category %>' href='<%= @settings['location']%><%= prev_next['next'].link %>'>
+                                <i class='fa <%=icon%> fa-2x'></i>
+                                <i class='fa fa-arrow-circle-o-right fa-2x'></i>
+                            </a>
+                        </li>
+                    <% end %>
+                    </ul>
+                </div>
+            <% end %>
+            <% end %>
+            </div>
 
-<article>
-<h2><%= current_post.title %></h2>
-<div class='date'><%= current_post.created.strftime("%B %d, %Y"); %></div>
-<%= current_post.html_content %>
-</article>
+            <div class='content'>
 
-<!-- DISQUS DROP-IN -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = '<%= @settings['disqus_shortname']%>'; // required: replace example with your forum shortname
-    var disqus_identifier = '<%= current_post.id %>'; 
-    var disqus_url = '<%= @settings['location'] + current_post.link %>';
-    var disqus_title = '<%= current_post.title.gsub("'", " ") %>';
+            <%= current_post.html_content %> 
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
- 
-</li>
+            <!-- DISQUS DROP-IN -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = '<%= @settings['disqus_shortname']%>'; // required: replace example with your forum shortname
+                var disqus_identifier = '<%= current_post.id %>'; 
+                var disqus_url = '<%= @settings['location'] + current_post.link %>';
+                var disqus_title = '<%= current_post.title.gsub("'", " ") %>';
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+            </div>
+            </div>
+        </article> 
 
 <%= @templates['_footer'] %>

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link href="<%= @settings['location'] %>style/style.css" rel="stylesheet" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type='text/javascript'> </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type='text/javascript'></script> 
-    <script src="<%= @settings['location'] %>style/jquery.flip.min.js" type='text/javascript'></script>
-    <script src="<%= @settings['location'] %>style/jflip.js" type="text/javascript"> </script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,400italic,700,700italic' rel='stylesheet' type='text/css'></link>
+    <link href='<%= @settings['location'] %>style/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'></link>
+    <link href='<%= @settings['location'] %>style/bootstrap/css/bootstrap-theme.min.css' rel='stylesheet' type='text/css'></link>
+    <link href='<%= @settings['location'] %>style/main.css' rel='stylesheet' type='text/css'></link>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+    <script src='<%= @settings['location'] %>style/bootstrap/js/bootstrap.min.js'></script>
+    <link href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'></link>
+    
+
     <title><%= @settings['title'] %></title>
 
     <!-- Google Analytics -->
@@ -28,13 +34,30 @@
 
 </head>
 
-<!-- BITCH, I'M A BUSBUS... powered website. -->
 <body>
 
-<div class='container'>
+<div class='container-fluid'>
 
-<ul class='things'>
-   
-    <li class='sidebar' id="home">
-        <ul> 
-            <li class='flippy grid grid_4 title'><h1><a href='<%= @settings['location']%>index.html'><%= @settings['title'] %></a></h1></li>
+    <div class='col-md-4 header'>
+        <h1><a href='<%= @settings['location']%>index.html'><%= @settings['title'] %></a></h1>
+    </div>
+    <div class='col-md-8 header-2 hidden-xs'>
+        <ul class='nav nav-tabs nav-justified'>
+            <li class='twitter'><a href='https://twitter.com/#!/classam'><i class='fa fa-twitter fa-lg'></i> twitter</a> </li>
+            <li class='comics'> <a href='http://cube-drone.com'><i class='fa fa-meh-o fa-lg'></i> Cube Drone</a> </li>
+            <li class='github'><a href='https://github.com/classam/'><i class='fa fa-github fa-lg'></i> Github</a> </li>
+            <li class='youtube'> <a href='http://www.youtube.com/user/IkoIkoComic'><i class='fa fa-youtube fa-lg'></i> YouTube</a></li>
+            <li class='rss'>  <a href='<%= @settings['location']%>rss.xml'><i class='fa fa-rss fa-lg'></i> RSS</a> </li>
+        </ul>
+    </div>
+    <div class='col-md-8 header-3 visible-xs'>
+        <div class='btn-group'>
+            <div class='btn btn-primary'><a href='https://twitter.com/#!/classam'><i class='fa fa-twitter fa-2x'></i></a> </div>
+            <div class='btn btn-primary'> <a href='http://cube-drone.com'><i class='fa fa-meh-o fa-2x'></i></a> </div>
+            <div class='btn btn-primary'><a href='https://github.com/classam/'><i class='fa fa-github fa-2x'></i></a> </div>
+            <div class='btn btn-primary'> <a href='http://www.youtube.com/user/IkoIkoComic'><i class='fa fa-youtube fa-2x'></i></a></div>
+        </div>
+    </div>
+
+    <div class='col-md-12'>
+    </div>

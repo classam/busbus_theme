@@ -1,79 +1,75 @@
 <%= @templates['_header'] %>
-            <!-- sidebar -->
-            <li class='grid grid_2 github flip'> <a href='https://github.com/classam/'>Github</a> </li>
-            <li class='grid grid_2 twitter flip'> <a href='https://twitter.com/#!/classam'>Twitter</a> </li>
-            <li class='grid grid_2 rss flip'> <a href='<%= @settings['location']%>rss.xml'>RSS</a> </li>
-            <li class='grid grid_2 comics flip'> <a href='#comics' class='filter' data-filter='comics' >Comics</a> </li>
-            <li class='grid grid_2 needlessly_technical flip'> <a class='filter' data-filter='needlessly_technical' href='#needlessly_technical'>Tech</a> </li>
-            <li class='grid grid_2 food flip'> <a class='filter' data-filter='food' href='#food'>Food</a> </li>
-        </ul>
-    </li>
 
-    <%
-    max_opacity = 1
-    min_opacity = 0.35
-    %>
-
-    <li id='main'> 
-    <ul>
     <% posts.each_with_index do |post, index| 
         
         word_count = post.html_content.split(/[^A-Za-z]/).count 
 
-        postclass = 'grid_2'
-        postclass = 'grid_4' if word_count > 800 
-        postclass = 'grid_6' if word_count > 1800
-        postclass = 'square_6' if index == 0
-        postclass = 'square_4' if index == 1 or index == 2
+        postclass = 'col-md-4'
+        postclass = 'col-md-12' if index < 10
 
         post.categories.each { |category| postclass << " " + category.downcase.gsub(' ', '_') } 
-        opacity = max_opacity - ((max_opacity - min_opacity)/posts.count) * index
-
         %>
 
-        <li class='grid <%= postclass %> flip' style='opacity:<%= opacity %>'  >
-            <em class='date'> <%= post.created.strftime("%d.%b.%y") %></em>  
-            <a href='<%= post.link %>'><%= post.title %></a> 
-        </li> 
-    <% end %>
-    <li class='grid grid_2' > <strong> That's all, folks. </strong> </li>
-    </ul>
-    <li><div style='clear:both;'> </div></li>
-    
-
-    <% for category, posts in categories %> 
-    <% if category != "Misc" and posts.length > 7   %>
-    <li class='category'>
-        <ul>
-            <li class='grid square_4 <%= category.downcase.gsub(' ', '_') %>'>
-                <h2 id='<%=category.downcase.gsub(' ', '_') %>'><%= category %> </h2>
-                <a href='#home'>Home</a>
-            </li>
+        <div class='grid <%= postclass %>'  >
+            <div class='item'>
+            <h2>
+            <a href='<%= post.link %>'>
+            <%= post.title %>
+            </a> 
+            </h2>
+            <div class='content'>
             
-            <% posts.each_with_index do |post, index| 
-                
-                word_count = post.html_content.split(/[^A-Za-z]/).count 
-
-                postclass = 'grid_2'
-                postclass = 'grid_4' if word_count > 800 
-                postclass = 'grid_6' if word_count > 1800
-                postclass = 'square_6' if index == 0
-                postclass = 'square_4' if index == 1
-
-                post.categories.each { |category| postclass << " " + category.downcase.gsub(' ', '_') } 
-                opacity = max_opacity - ((max_opacity - min_opacity)/posts.count) * index
-
-                %>
-
-                <li class='grid <%= postclass %>' style='opacity:<%= opacity %>'  >
-                    <em class='date'> <%= post.created.strftime("%d.%b.%y") %></em>  
-                    <a href='<%= post.link %>'><%= post.title %></a> 
-                </li> 
+            <p class='date'><%= post.created.strftime("%B %d, %Y") %> </p>
+            
+            <ul class='category nav nav-pills'>
+            <% for category in post.categories %>            
+                <% if ['Comics', 'Video', 'Sketch', 'Needlessly Technical', 'Tech', 'Food', 'Design & Typography', 'University', 'Peru Trip', 'Travel'].include? category %>
+                    <% icon = "fa-picture-o" if category == 'Comics' %>
+                    <% icon = "fa-pencil" if category == 'Sketch' %>
+                    <% icon = "fa-youtube-play" if category == 'Video' %>
+                    <% icon = "fa-code-fork" if category == 'Needlessly Technical' %>
+                    <% icon = "fa-code-fork" if category == 'Tech' %>
+                    <% icon = "fa-cutlery" if category == 'Food' %>
+                    <% icon = "fa-sort-alpha-asc" if category == 'Design & Typography' %>
+                    <% icon = "fa-building-o" if category == 'University' %>
+                    <% icon = "fa-umbrella " if category == 'Peru Trip' %>
+                    <li>
+                        <a class='categorylink' data-filter='<%=category.downcase.gsub(' ', '_') %>' href='#<%=category.downcase.gsub(' ', '_') %>'>
+                            <i class='fa <%=icon%> fa-2x'></i>
+                            <%= category %>
+                        </a>
+                    </li>
+                <% end %>
             <% end %>
-        </ul>
-    </li>
-    <li> <div style='clear:both;'> </div> </li>
+            </ul>
+
+            <% if index < 10 %>
+               <%= post.html_content %> 
+            <% end %>
+            </div>
+            </div>
+        </div> 
     <% end %>
-    <% end %>
+
+    <script>
+    function filter(on_this){
+        $(".grid").hide();
+        $("."+on_this).show();
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+    function hasharoo(){
+        var hashy = window.location.hash.substr(1, window.location.hash.length);
+        filter(hashy);
+    }
+    $(function(){
+        if(window.location.hash !== ""){
+            hasharoo();
+        }
+        $(".categorylink").click( function(){
+            console.log($(this).data('filter'));
+            filter($(this).data('filter'));
+        });
+    });
+    </script>
 
 <%= @templates['_footer'] %>
